@@ -46,7 +46,6 @@ const getHeaderButtons = (isLoggedIn) => {
     },
   ];
 
-  // Only add '聊天' if chat link exists in localStorage
   if (localStorage.getItem('chat_link')) {
     buttons.push({
       text: '聊天',
@@ -57,10 +56,7 @@ const getHeaderButtons = (isLoggedIn) => {
   }
 
   if (isLoggedIn) {
-    // Remove '模型价格' from initial buttons when logged in
     buttons = buttons.filter(button => button.itemKey !== 'pricing');
-
-    // Add logged-in specific buttons
     buttons.push(
       {
         text: '令牌',
@@ -94,7 +90,6 @@ const getHeaderButtons = (isLoggedIn) => {
       }
     );
 
-    // If user is admin, add these buttons to the end
     if (isAdmin()) {
       buttons.push(
         {
@@ -143,7 +138,6 @@ const getHeaderButtons = (isLoggedIn) => {
     );
   }
 
-  // Filter out hidden buttons
   return buttons.filter((button) => !button.hidden);
 };
 
