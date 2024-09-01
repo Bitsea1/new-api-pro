@@ -46,6 +46,7 @@ const getHeaderButtons = (isLoggedIn) => {
     },
   ];
 
+  // Only add '聊天' if chat link exists in localStorage
   if (localStorage.getItem('chat_link')) {
     buttons.push({
       text: '聊天',
@@ -56,31 +57,11 @@ const getHeaderButtons = (isLoggedIn) => {
   }
 
   if (isLoggedIn) {
-    // 如果是管理员，添加这些按钮
-    if (isAdmin()) {
-      buttons = buttons.concat([
-        {
-          text: '渠道',
-          itemKey: 'channel',
-          to: '/channel',
-          icon: <IconLayers />,
-        },
-        {
-          text: '兑换码',
-          itemKey: 'redemption',
-          to: '/redemption',
-          icon: <IconGift />,
-        },
-        {
-          text: '用户管理',
-          itemKey: 'user',
-          to: '/user',
-          icon: <IconUser />,
-        },
-      ]);
-    }
+    // Remove '模型价格' from initial buttons when logged in
+    buttons = buttons.filter(button => button.itemKey !== 'pricing');
 
-    buttons = buttons.concat([
+    // Add logged-in specific buttons
+    buttons.push(
       {
         text: '令牌',
         itemKey: 'token',
@@ -99,6 +80,45 @@ const getHeaderButtons = (isLoggedIn) => {
         to: '/log',
         icon: <IconHistogram />,
       },
+      {
+        text: '设置',
+        itemKey: 'setting',
+        to: '/setting',
+        icon: <IconSetting />,
+      },
+      {
+        text: '模型价格',
+        itemKey: 'pricing',
+        to: '/pricing',
+        icon: <IconPriceTag />,
+      }
+    );
+
+    // If user is admin, add these buttons to the end
+    if (isAdmin()) {
+      buttons.push(
+        {
+          text: '渠道',
+          itemKey: 'channel',
+          to: '/channel',
+          icon: <IconLayers />,
+        },
+        {
+          text: '兑换码',
+          itemKey: 'redemption',
+          to: '/redemption',
+          icon: <IconGift />,
+        },
+        {
+          text: '用户管理',
+          itemKey: 'user',
+          to: '/user',
+          icon: <IconUser />,
+        }
+      );
+    }
+
+    buttons.push(
       {
         text: '数据看板',
         itemKey: 'detail',
@@ -119,17 +139,11 @@ const getHeaderButtons = (isLoggedIn) => {
         to: '/task',
         icon: <IconChecklistStroked />,
         hidden: localStorage.getItem('enable_task') !== 'true',
-      },
-      {
-        text: '设置',
-        itemKey: 'setting',
-        to: '/setting',
-        icon: <IconSetting />,
-      },
-    ]);
+      }
+    );
   }
 
-  // 过滤掉 hidden 为 true 的按钮
+  // Filter out hidden buttons
   return buttons.filter((button) => !button.hidden);
 };
 
