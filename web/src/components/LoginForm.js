@@ -163,6 +163,18 @@ const LoginForm = () => {
           >
             <div style={{ width: 500 }}>
               <Card>
+                <img
+                  src={logo}
+                  alt="logo"
+                  style={{
+                    marginRight: '0.75em',
+                    width: '50px',
+                    height: '50px',
+                    display: 'block',
+                    margin: '0 auto',
+                    marginBottom: '5px', // 设置图标与标题之间的间距
+                  }}
+                />
                 <Title heading={2} style={{ textAlign: 'center' }}>
                   用户登录
                 </Title>

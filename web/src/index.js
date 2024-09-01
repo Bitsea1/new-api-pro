@@ -25,9 +25,6 @@ root.render(
         <BrowserRouter>
           <ThemeProvider>
             <Layout>
-              <Sider>
-                <SiderBar />
-              </Sider>
               <Layout>
                 <Header>
                   <HeaderBar />
@@ -39,9 +36,6 @@ root.render(
                 >
                   <App />
                 </Content>
-                <Layout.Footer>
-                  <Footer></Footer>
-                </Layout.Footer>
               </Layout>
               <ToastContainer />
             </Layout>
